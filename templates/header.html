@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>News Search Engine</title>
+    <style type="text/css">
+        div#doc {width:800px}
+    .pagination-page-info {
+        padding: .6em;
+        padding-left: 0;
+        width: 40em;
+        margin: .5em;
+        margin-left: 0;
+        font-size: 12px;
+    }
+    .pagination-page-info b {
+        color: black;
+        background: #6aa6ed;
+        padding-left: 2px;
+        padding: .1em .25em;
+        font-size: 150%;
+    }
+    </style>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    
+</head>
+<body>
+    <div id="container" class="intro-message">
+        <div id="header" class="mf-38">
+            <h1 class="medium-head">军民融合搜索引擎</h1>
+            <form name="search" action="/search/" method="get"><!-- {% csrf_token %} -->
+                <div>
+                    {% if key %}
+                        <input class="search-input-medium" type="text" name="keyword" value="{{key}}">
+                    {% else %}
+                        <input class="search-input-medium" type="text" name="keyword">
+                    {% endif %}
+                    <input type="hidden" name="page" value="1">
+                    <input type="hidden" name="isSearch" value="1">
+                    <input type="submit" value="Search" class="search-btn-medium">
+                </div>
+            </form>
+        </div>
+        <hr/>
+<!-- For more content -->
+        {% block navigator %}
+        {% endblock %}
+        {% block display_content%}
+        {% endblock %}
+        {% block next %}
+        {% endblock %}
+
+		<div id="footer">
+            &copy; 2017
+        </div>
+		
+    </div>
+</body>
+</html>

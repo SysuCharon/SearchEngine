@@ -1,0 +1,53 @@
+{% extends "header.html" %}
+{% block navigator %}
+
+<!-- <div id="select">
+    <ul>
+        <form name="search" action="/search/sort/" method="POST">
+            <input type="radio" name="order" id="r1" value="0" /> <label for="r1">相关度</label>
+            <input type="radio" name="order" id="r2" value="1" /> <label for="r2">时间</label>
+            <input type="radio" name="order" id="r3" value="2" /> <label for="r3">热度</label>
+            <input type="submit" value="ok">
+        </form>
+        <div>{{ num }}条记录在{{ time }}秒</div>
+    </ul>
+</div> -->
+{% endblock %}
+
+{% block display_content %}
+{% if error%}
+    <div class="doc mf-38">
+        <p>对不起，没有您搜索的网页！</p>
+    </div>
+{% else %}
+{% for doc in docs%}
+    {%if forloop.counter <= page.record_end and forloop.counter > page.record_start %}
+    <div class="doc mf-38">
+            <p><big><a href="{{ doc.site }}" target="_blank">{{ doc.title}}</a></big></p>
+            <p>{{doc.time}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{doc.dep}}</p>
+            <p>
+                {{doc.abst}}
+            </p>
+    </div>
+    <br/>
+    {% endif %}
+{% endfor %}
+{% endif %}
+
+<div id="page_count" class="mf-38">
+    <ul class="pagination">
+    {% if page.cur_page == 1 %}
+        <li class="disabled"><a href="">&laquo;</a></li>
+    {% else %}
+        <li><a href= "?keyword={{key}}&page={{page.pre}}&isSearch=0">&laquo;</a></li>
+    {% endif %}
+    {% for i in page.pages%}
+        <li id="page_{{i}}"><a href="?keyword={{key}}&page={{i}}&isSearch=0">{{i}}</a></li>
+    {% endfor %}
+        <li><a href="?keyword={{key}}&page={{page.next}}&isSearch=0">&raquo;</a></li>
+    </ul>
+</div>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/common.js"></script>
+{% endblock %}
